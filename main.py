@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:build-a-blog@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:launchcode@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 app.secret_key = 'f8wv3w2f>v9j4sEuhcNYydAGMzzZJgkGgyHE9gUqaJcCk^f*^o7fQyBT%XtTvcYM'
@@ -50,21 +50,21 @@ def display_blog_entries():
     # TODO refactor to use routes with variables instead of GET parameters
     entry_id = request.args.get('id')
     if (entry_id):
-        entry = Entry.query.get(entry_id)
+        entry = Blog.query.get(entry_id)
         return render_template('single_entry.html', title="Blog Entry", entry=entry)
 
     # if we're here, we need to display all the entries
     # TODO store sort direction in session[] so we remember user's preference
     sort = request.args.get('sort')
     if (sort=="newest"):
-        all_entries = Entry.query.order_by(Entry.created.desc()).all()
+        all_entries =  Blog.query.order_by(Blog.created.desc()).all()
     else:
-        all_entries = Entry.query.all()   
+        all_entries = Blog.query.all()   
     return render_template('all_entries.html', title="All Entries", all_entries=all_entries)
 
 #
-@app.route('/new_entry', methods=['GET', 'POST'])
-def new_entry():
+@app.route('/newpost', methods=['GET', 'POST'])
+def newpost():
     '''
     GET: Display form for new blog entry
     POST: create new entry or redisplay form if values are invalid
