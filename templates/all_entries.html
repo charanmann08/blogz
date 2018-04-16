@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 
+TEST MESSAGE
 {% block content %}
-    <h1>All Blog Entries</h1>
-    <ul>
+    <h1><center>Build a Blog</center></h1>
+    
         {% for entry in all_entries %}
-            <li>
+            
                 <h2>
                     <a href="/blog?id={{ entry.id }}">{{ entry.title }}</a>
                 </h2>
                 <p>{{ entry.body }}</p>
-                <p>{{ entry.created }}</p>
-            </li>
+                
+            
         {% endfor %}
-    </ul>
+    
 {% endblock %}

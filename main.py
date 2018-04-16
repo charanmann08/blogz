@@ -1,7 +1,3 @@
-'''
-See repo README
-'''
-
 from flask import Flask, request, redirect, render_template, flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -14,7 +10,7 @@ db = SQLAlchemy(app)
 app.secret_key = 'f8wv3w2f>v9j4sEuhcNYydAGMzzZJgkGgyHE9gUqaJcCk^f*^o7fQyBT%XtTvcYM'
 
 
-class Entry(db.Model):
+class Blog(db.Model):
     '''
     Stores blog entries
     '''
@@ -74,23 +70,23 @@ def new_entry():
     POST: create new entry or redisplay form if values are invalid
     '''
     if request.method == 'POST':
-        new_entry_title = request.form['title']
-        new_entry_body = request.form['body']
-        new_entry = Entry(new_entry_title, new_entry_body)
+        newpost_title = request.form['title']
+        newpost_body = request.form['body']
+        newpost = Blog(newpost_title, newpost_body)
 
-        if new_entry.is_valid():
-            db.session.add(new_entry)
+        if newpost.is_valid():
+            db.session.add(newpost)
             db.session.commit()
 
             # display just this most recent blog entry
-            url = "/blog?id=" + str(new_entry.id)
+            url = "/blog?id=" + str(newpost.id)
             return redirect(url)
         else:
             flash("Please check your entry for errors. Both a title and a body are required.")
             return render_template('new_entry_form.html',
                 title="Create new blog entry",
-                new_entry_title=new_entry_title,
-                new_entry_body=new_entry_body)
+                newpost_title=newpost_title,
+                newpost_body=newpost_body)
 
     else: # GET request
         return render_template('new_entry_form.html', title="Create new blog entry")
