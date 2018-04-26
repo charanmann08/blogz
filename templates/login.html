@@ -1,27 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Login</h1>
-<form method="POST">
-    
-  <tabel>
-      <tr>
-          <td><label><span class ="form_label">Username</span></label></td>
-          <td>
-            <input  name="username" type="text" value='{{username}}'/> &nbsp;<span style="color:red;">{{username_error}}</span>&nbsp;
-           </td>
-      </tr> 
-      <br></br>
-      <tr>
-          <td><label><span class ="form_label">Password</span></label></td>
-          <td>   
-            <input name="password" type="password"  value='{{password}}'/>&nbsp;<span style="color:red;">{{password_error}}</span>&nbsp;
-          </td>
-      </tr>  
-      
-   </tabel>       
-   <br></br>
-  <input class ="submit" type="submit" value="Submit"/>
+
+<h1>{{ title }}</h1>
+
+<form action="/login" method="post">
+    <table>
+        <tr>
+            <td>
+                <label for="username"> Username: </label>
+            </td>
+            <td>
+                <input name="username" type="text" value="{{ username }}">
+                <p class= "error"> {{ name_error }} </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="password"> Password: </label>
+            </td>
+            <td>
+                <input name="password" type="password">
+                <p class= "error"> {{ pass_error }} </p>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Login"> &nbsp;&nbsp;
 </form>
+
+<input onClick="window.location.href='/signup'" type="submit" Value="Create Account">
+
+
 
 {% endblock %}

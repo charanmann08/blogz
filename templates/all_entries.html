@@ -1,17 +1,26 @@
 {% extends "base.html" %}
-
-TEST MESSAGE
 {% block content %}
-    <h1><center>Build a Blog</center></h1>
-    
-        {% for entry in all_entries %}
-            
-                <h2>
-                    <a href="/blog?id={{ entry.id }}">{{ entry.title }}</a>
-                </h2>
-                <p>{{ entry.body }}</p>
-                
-            
+
+    <h1> {{ title }} </h1>
+    <h3> {{ welcome }} </h3>
+
+    {% if user_list|length == 0 %}
+        <p> No Users? </p>
+    {% else %}
+    <table>
+
+        {% for user in user_list %}
+            <ul>
+                <li>
+                    <form id= "individual_user" action= "/UserPage">
+                        <input form= "individual_user" type= "submit" 
+                            class= "link_button" name= "user_link" 
+                            value= "{{ user.username }}"/>
+                    </form>
+                </li>
+            </ul>
         {% endfor %}
-    
+    </table>
+
+    {% endif %}
 {% endblock %}
